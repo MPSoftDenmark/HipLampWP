@@ -15,13 +15,13 @@ Docker LAMP = PHP / Apache / Varnish + MySql / Redis / PhpMyAdmin
 9. WP-CLI A command line interface for WordPress
 
 * Docker version:
-...Client:
-...Version:      1.13.1
-...API version:  1.26
-...Go version:   go1.7.5
-...Git commit:   092cba3
-...Built:        Wed Feb  8 06:50:14 2017
-...OS/Arch:      linux/amd64
+..*Client:
+..*Version:      1.13.1
+..*API version:  1.26
+..*Go version:   go1.7.5
+..*Git commit:   092cba3
+..*Built:        Wed Feb  8 06:50:14 2017
+..*OS/Arch:      linux/amd64
 
 * Docker Compose verion:
-...docker-compose version 1.11.1, build 7c5d5e4
+..*docker-compose version 1.11.1, build 7c5d5e4
