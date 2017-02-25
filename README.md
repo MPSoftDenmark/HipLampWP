@@ -13,6 +13,7 @@ Docker LAMP = PHP / Apache / Varnish + MySql / Redis / PhpMyAdmin
 7. PHP (recursive acronym for PHP: Hypertext Preprocessor) is a widely-used open source general-purpose scripting language that is especially suited for web development and can be embedded into HTML.
 8. WordPress is a free and open-source content management system (CMS) based on PHP and MySQL.
 9. WP-CLI A command line interface for WordPress
+* Docker version:
 ...Client:
 ...Version:      1.13.1
 ...API version:  1.26
@@ -20,5 +21,5 @@ Docker LAMP = PHP / Apache / Varnish + MySql / Redis / PhpMyAdmin
 ...Git commit:   092cba3
 ...Built:        Wed Feb  8 06:50:14 2017
 ...OS/Arch:      linux/amd64
-...
+* Docker Compose verion:
 ...docker-compose version 1.11.1, build 7c5d5e4
