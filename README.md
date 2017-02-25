@@ -1,7 +1,7 @@
 # HipLampWP
 Docker LAMP = PHP / Apache / Varnish + MySql / Redis / PhpMyAdmin 
 
-##HiP (High Performance) L=(Linux/Docker) A=(Apache Varnish)  M=(MySQL PhpMyAdmin Redis) P=(PHP7) WP =(WordPress)
+##HiP (High Performance) L=(Linux/Docker) A=(Apache Varnish)  M=(MySQL PhpMyAdmin Redis) P=(PHP) WP =(WordPress)
 1. Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications, whether on laptops, data center VMs, or the cloud.
 2. Apache HTTP Server Project is an effort to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows.
 3. Varnish Cache is a web application accelerator also known as a caching HTTP reverse proxy.
