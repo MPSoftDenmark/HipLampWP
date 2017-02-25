@@ -1,0 +1,118 @@
+version: '2.1'
+# ----------------------------------
+services:
+# ----------------------------------
+  mysql:
+# ----------------------------------
+    image: mysql
+    container_name: mysql
+    hostname: mysql.dlan
+    networks:
+      app_net:
+        ipv4_address: 172.3.14.10
+    volumes:
+      - ./wp_db:/var/lib/mysql
+#      - ./wp_db_etc:/etc/mysql/
+    restart: always
+    ports:
+      - 127.0.0.1:3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+# ----------------------------------
+  redis:
+# ----------------------------------
+# WP Plugin: Redis Object Cache / define( 'WP_REDIS_HOST', 'redis.dlan' );
+    image: redis
+    container_name: redis
+    hostname: redis.dlan
+    networks:
+      app_net:
+        ipv4_address: 172.3.14.11
+    ports:
+      - 127.0.0.1:6379:6379
+# ----------------------------------
+  varnish:
+# ----------------------------------
+# WP Plugin: Varnish HTTP Purge / www.example.com/wp-admin/tools.php?page=varnish-status
+    build: .
+    image: varnish:debian
+    container_name: varnish
+    hostname: varnish.dlan
+    networks:
+      app_net:
+        ipv4_address: 172.3.14.12
+    ports:
+      - 127.0.0.1:80:80
+      - 127.0.0.1:6082:6082
+    links:
+      - wordpress:wordpress.dlan
+    volumes:
+     - "./varnish/etc/default/varnish:/etc/default/varnish:ro"
+     - "./varnish/etc/varnish/:/etc/varnish/:ro"
+# WP Plugin: Varnish HTTP Purge /
+# If you have a single server, both Varnish Cache and the backend on it, use the folowing cronjob:
+# */3 * * * * root /usr/bin/varnishstat -1j > /path/to/the/wordpress/root/varnishstat.json # every 3 minutes.
+# Then fill in the relative path to the files in Statistics JSONs on the Settings tab :
+     - "statistics:/statistics"
+    ulimits:
+      memlock: -1
+      nofile: 131072
+    tty: true
+# ----------------------------------
+  wordpress:
+# ----------------------------------
+    image: wordpress
+    container_name: wordpress
+    hostname: wordpress.dlan
+    networks:
+      app_net:
+        ipv4_address: 172.3.14.13
+    ports:
+      - 127.0.0.1:8080:80
+    links:
+      - mysql:mysql.dlan
+      - redis:redis.dlan
+    restart: always
+    volumes:
+     - "./wp_html:/var/www/html"
+     - "statistics:/statistics"
+    environment:
+      #WORDPRESS_DB_HOST: db
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+# ----------------------------------
+  phpmyadmin:
+# ----------------------------------
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    hostname: phpmyadmin.dlan
+    networks:
+      app_net:
+        ipv4_address: 172.3.14.14
+    ports:
+      - 127.0.0.1:8181:80
+    links:
+      - mysql:mysql.dlan
+    restart: always
+    environment:
+      PMA_HOST: mysql.dlan
+      MYSQL_ROOT_PASSWORD: root123
+      PHP_UPLOAD_MAX_FILESIZE: 256MB
+      PHP_MAX_INPUT_VARS: 256MB
+# ----------------------------------
+networks:
+# ----------------------------------
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.3.14.0/24
+# ----------------------------------
+volumes:
+# ----------------------------------
+  statistics:
