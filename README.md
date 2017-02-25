@@ -10,7 +10,7 @@ Docker LAMP = PHP / Apache / Varnish + MySql / Redis / PhpMyAdmin
 6. Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
 7. PHP (recursive acronym for PHP: Hypertext Preprocessor) is a widely-used open source general-purpose scripting language that is especially suited for web development and can be embedded into HTML.
 8. WordPress is a free and open-source content management system (CMS) based on PHP and MySQL.
-9. WP-CLI A command line interface for WordPress
+9. WP-CLI A command line interface for WordPress.
 
 * Docker version:
 >Client:
