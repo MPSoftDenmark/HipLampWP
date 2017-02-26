@@ -58,7 +58,7 @@ services:
 # If you have a single server, both Varnish Cache and the backend on it, use the folowing cronjob:
 # */3 * * * * root /usr/bin/varnishstat -1j > /path/to/the/wordpress/root/varnishstat.json # every 3 minutes.
 # Then fill in the relative path to the files in Statistics JSONs on the Settings tab :
-     - "./wp_html/varnishstat.json:/var/www/html/varnishstat.json"
+     - "./wp_html/varnishstat.json:/var/www/html/varnishstat.json:rw"
     ulimits:
       memlock: -1
       nofile: 131072

@@ -6,4 +6,6 @@ acl cloudflare {
 acl purge {
 "localhost";
 "127.0.0.1";
+"172.3.14.13";
+"172.3.14.13";
 }
