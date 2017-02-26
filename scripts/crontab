@@ -1,0 +1,3 @@
+SHELL="/bin/bash"
+PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+*/3 * * * * /usr/bin/varnishstat -1j > /var/www/html/varnishstat.json && chmod 644 /var/www/html/varnishstat.json

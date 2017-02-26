@@ -11,8 +11,8 @@ services:
       app_net:
         ipv4_address: 172.3.14.10
     volumes:
-      - ./wp_db:/var/lib/mysql
-#      - ./wp_db_etc:/etc/mysql/
+      - "./wp_db:/var/lib/mysql"
+      - "./scripts:/scripts:ro"
     restart: always
     ports:
       - 127.0.0.1:3306:3306
@@ -44,19 +44,21 @@ services:
     networks:
       app_net:
         ipv4_address: 172.3.14.12
+        # Is the same as in the ./scripts/property.cfg !!! --> VARNIS_IP=172.3.14.12
     ports:
       - 127.0.0.1:80:80
       - 127.0.0.1:6082:6082
     links:
       - wordpress:wordpress.dlan
     volumes:
+     - "./scripts:/scripts:ro"
      - "./varnish/etc/default/varnish:/etc/default/varnish:ro"
      - "./varnish/etc/varnish/:/etc/varnish/:ro"
 # WP Plugin: Varnish HTTP Purge /
 # If you have a single server, both Varnish Cache and the backend on it, use the folowing cronjob:
 # */3 * * * * root /usr/bin/varnishstat -1j > /path/to/the/wordpress/root/varnishstat.json # every 3 minutes.
 # Then fill in the relative path to the files in Statistics JSONs on the Settings tab :
-     - "statistics:/statistics"
+     - "./wp_html/varnishstat.json:/var/www/html/varnishstat.json"
     ulimits:
       memlock: -1
       nofile: 131072
@@ -77,8 +79,9 @@ services:
       - redis:redis.dlan
     restart: always
     volumes:
+     - "./scripts:/scripts:ro"
      - "./wp_html:/var/www/html"
-     - "statistics:/statistics"
+     - "./wp_html/varnishstat.json:/var/www/html/varnishstat.json:ro"
     environment:
       #WORDPRESS_DB_HOST: db
       MYSQL_ROOT_PASSWORD: root123
@@ -113,6 +116,6 @@ networks:
       config:
       - subnet: 172.3.14.0/24
 # ----------------------------------
-volumes:
+#volumes:
 # ----------------------------------
-  statistics:
+#  statistics:
