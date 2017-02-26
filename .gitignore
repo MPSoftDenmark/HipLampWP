@@ -1,3 +1,4 @@
 # WP Databes Files $ WWW files
 wp_html/*
 wp_db/*
+!wp_html/varnishstat.json
