@@ -197,6 +197,8 @@ sub vcl_backend_response {
         set beresp.ttl   = 0s;
         set beresp.grace = 15s;
     }
+    # When you renamed the login von WP #####
+    if (!(bereq.url ~ "wp-(login|admin)" || bereq.url ~ "(belepes)")) { unset beresp.http.set-cookie; }
 
     # Deliver the content
     return(deliver);
@@ -211,7 +213,7 @@ sub vcl_synth {
 }
 
 sub vcl_pipe {
-     if (req.http.upgrade) {
+     if (req.http.upgrade) {	 if (!(req.url ~ "wp-(login|admin)" || req.url ~ "(backdoor-for-hackers)")) { unset req.http.cookie; }
          set bereq.http.upgrade = req.http.upgrade;
      }
 }
